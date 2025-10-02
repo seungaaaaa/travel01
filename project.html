@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        *{ margin: 0; padding: 0; text-decoration: none; list-style: none;}
+        body{ width: 100vw; height: 100vh; background-color:#fdfdfd;  overflow-x: hidden; padding-top: 60px;}
+        nav{
+            width: 100%;
+            height: 60px;
+            background-color: #87CEEB;
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 15;
+        }   
+        .mainLogo{
+            width: 20%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 100px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        .menu:link{ color: black; }
+        .menu:visited{ color: black; }
+        .menu:active{ color: #ccc; }
+            .menus{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                gap: 200px;
+                padding-left: 300px;
+        }
+            .menu{cursor: pointer;}
+            .menu.active{
+                font-size: 25px;
+                text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+            }
+
+            .menu:hover{
+                text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+            }
+        
+        section{ width: 100%; height: calc(100% - 150px);}
+        .sec1{ width: 100%; height: 100%; position: relative; }
+        .sec2{ width: 100%; height: 100%; position: relative; margin-top: 230px; }
+        .countryBox{
+            width: 80%;
+            height: 20%;
+            display: flex;
+            gap: 30px;
+            margin: 20px auto;
+        }
+        .country{
+            width: 25%;
+            height: 100%;
+            background-position: center;
+            background-size: cover;
+            font-size: 40px;
+            text-align: center;
+            line-height: 180px;
+            background-color: rgba(255, 255, 255, 0.3);
+            background-blend-mode: lighten;
+            color: #FFF;
+            font-weight: bold;
+            text-shadow: 4px 4px 5px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .country1{ background-image: url(./img/spring04.jpg); }
+        .country2{ background-image: url(./img/spring01.jpg); }
+        .country3{ background-image: url(./img/spring02.jpg); }
+        .country4{ background-image: url(./img/spring03.jpg); }
+        .country5{ background-image: url(./img/summer01.jpg); }
+        .country6{ background-image: url(./img/summer02.jpg); }
+        .country7{ background-image: url(./img/summer03.jpg); }
+        .country8{ background-image: url(./img/summer04.jpg); }
+        .country9{ background-image: url(./img/fall01.jpg); }
+        .country10{ background-image: url(./img/fall02.jpg); }
+        .country11{ background-image: url(./img/fall03.jpg); }
+        .country12{ background-image: url(./img/fall04.jpg); }
+        .country13{ background-image: url(./img/winter01.jpg); }
+        .country14{ background-image: url(./img/winter02.jpg); }
+        .country15{ background-image: url(./img/winter03.jpg); }
+        .country16{ background-image: url(./img/winter04.jpg); }
+
+        .contentBox{
+            width: 80%;
+            height: 80%;
+            gap: 30px;
+            display: grid;
+            grid-template-columns: 38% 60%;
+            grid-template-rows: 40% 55%;
+            border: 1px solid #CCC;
+            border-radius: 10px;
+            padding: 20px 50px;
+            opacity: 0;
+            position: absolute;
+            top: 180px; left: 150px;
+            transition: all 0.3s linear;
+        }
+
+        .contentBox.active{
+            opacity: 1;
+            z-index: 10;
+        }
+        .mapBox{
+            width: 100%;
+            height: 100%;
+            grid-column: 1/2;
+        }
+        .map{
+            width: 100%;
+            height: 90%;
+            border-radius: 10px;
+        }
+        .dragCon{
+            width: 100%;
+            grid-column: 2/3;
+            border-radius: 10px;
+            border: 1px solid #CCC;
+            overflow: hidden;
+            padding: 10px 0;
+        }
+        .text2{
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        .dragBox{
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+            display: flex;
+            gap: 40px;
+            user-select: none;
+            cursor: grab;
+        }
+        .wordsCon{
+            grid-column: 1/3;
+            border-radius: 10px;
+            border: 1px dotted #CCC;
+            background-color:  #BFE6EB;
+        }
+        .cardIn{
+            width: 25%;
+            height: 85%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.5s;
+            flex-shrink: 0;
+        }
+        .cardIn:hover{ transform: rotateY(180deg);}
+        .cardFront{
+            width: 100%;
+            height: 100%;
+        }
+        .cardFront, .cardBack{ position: absolute; inset: 0; backface-visibility: hidden;}
+        .cardImg{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .cardBack{
+            transform: rotateY(180deg);
+            border: 1px solid #333;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            text-align: center;
+        }
+        .wordsTitle{
+            width: 100%;
+            height: 12%;
+            font-size: 25px;
+            padding-left: 50px;
+            padding-top: 10px;
+        }
+        .wordsBox{
+            width: 90%;
+            height: 82%;
+            display: flex;
+            gap: 60px;
+            margin: 15px auto;
+        }
+        .words{
+            width: 30%;
+            height: 90%;
+            border-right: 1px solid #ccc;
+        }
+        .wordsLast{
+            border-right: none;
+        }
+        .hello1{
+            font-size: 20px;
+            font-weight: bold;
+            padding-top: 15px;
+        }
+        .hello2{
+            font-size: 16px;
+            font-weight: normal;
+            padding-top: 3px;
+        }
+        .rollingSec{
+            width: 98%;
+            height: 150px;
+            margin: 200px auto;
+            margin-bottom: 100px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .rollBox{
+            width: 300%;
+            height: 100%;
+            display: flex;
+        }
+        .rolling{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            gap: 20px;
+        }
+        .flagDiv{
+            width: 40%;
+            height: 100%;
+        }
+        .flagImg{
+            width: 100%;
+            height: 100%;
+            object-position: center;
+            object-fit: cover;
+        }
+        .flagDiv:nth-child(13){
+            margin-right: 20px;
+        }
+
+        .rolling{animation: move1 linear infinite 50s;}
+        #clone{animation: move1 linear infinite 50s;}
+
+
+        @keyframes move1{
+            100%{
+                transform: translateX(-100%);
+            }
+            0%{
+                transform: translateX(0);
+            }
+        }
+
+        footer{
+            width: 100%;
+            height: 150px;
+            background-color: #222;
+        }
+        .info{
+            width: 80%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #AAA;
+            font-size: 19px;
+            gap: 40px;
+            margin: 0 auto;
+        }
+        .leftF{
+            border-right: 1px solid #AAA;
+            padding-right: 40px;
+        }
+        .rightF{
+            font-size: 14px;
+        }
+
+        @media(max-width: 480px){
+            .menus{
+                width: 200px;
+                height: 100%;
+                font-size: 20px;
+                gap: 13px;
+                padding-left: 25px;
+            }
+            .mainLogo{
+                width: 150px;
+                padding-left: 10px;
+                font-size: 23px;
+            }
+            section{
+                width: 95%;
+            }
+            .sec2{
+                margin-top: 400px;
+            }
+            .countryBox{
+                width: 95%;
+                gap: 5px;
+            }
+            .country{
+                width: 180px;
+                font-size: 20px;
+            }
+            .none{
+                display: none;
+            }
+            .contentBox{
+                width: 470px;
+                padding-left: 10px;
+                height: 900px;
+                gap: 5px;
+                top: 180px; left: 0;
+                grid-template-columns: 100%;
+                grid-template-rows: 20% 25% 55%;
+            }
+            .mapBox{
+                grid-column: 1;
+            }
+            .dragCon{
+                grid-column: 1;
+                margin-top: 30px;
+                padding: 0;
+            }
+            .text2{
+                margin-left: 10px;
+            }
+            .cardBack{
+                font-size: 14px;
+            }
+            .wordsCon{
+                grid-column: 1;
+                margin-top: 30px;
+            }
+            .wordsBox{
+                flex-direction: column;
+                gap: 10px;
+            }
+            .words{
+                border-right: none;
+                border-bottom: 1px solid #CCC;
+                padding-bottom: 20px;
+                display: flex;
+                gap: 20px;
+                width: 100%;
+                height: 25%;
+            }
+            .wordsLast{
+                border: none;
+            }
+            .wordsTitle{
+                font-size: 20px;
+                padding-left: 5px;
+            }
+            .hello1{
+                font-size: 17px;
+            }
+            .hello2{
+                font-size: 14px;
+            }
+            .rollingSec{
+                margin-top: 450px;
+                height: 80px;
+                margin-bottom: 70px;
+            }
+            .flagDiv{
+                width: 200px;
+            }
+            footer{
+                height: 80px;
+            }
+            .info{
+            width: 100%;
+            flex-direction: column;
+            color: #AAA;
+            font-size: 16px;
+            gap: 10px;
+            margin: 0 auto;
+            justify-content: center;
+        }
+            .leftF{
+                border-right: none;
+            }
+            .rightF{
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="mainLogo"><a href="/main.html" target="_self">🍁☀️<span class="low">🌸❄️</span></a></div>
+        <div class="menus">
+            <div><a href="#sec1" class="menu active">봄</a></div>
+            <div><a href="#sec2" class="menu">여름</a></div>
+            <div><a href="#sec3" class="menu">가을</a></div>
+            <div><a href="#sec4" class="menu">겨울</a></div>
+        </div>
+    </nav>
+    <!-- 봄 -->
+    <section>
+        <div class="sec1" id="sec1">
+            <div class="countryBox">
+                <div class="country country1" onclick="nara1('ta')"><span class="none">대만</span> 타이페이</div>
+                <div class="country country2" onclick="nara1('huku')"><span class="none">일본</span> 후쿠오카</div>
+                <div class="country country3" onclick="nara1('pari')"><span class="none">프랑스</span> 파리</div>
+                <div class="country country4" onclick="nara1('sang')"><span class="none">중국</span> 상하이</div>
+            </div> <!-- 나라  -->
+            <div class="contentBox contentBox1 ta active">
+                <div class="mapBox">
+                    <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;Golden Formosa</div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3612.5142431863383!2d121.53367677537933!3d25.11829957776188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442ae7fe527654f%3A0x943ba6a9916744a7!2sGolden%20Formosa%20Taiwanese%20Cuisine!5e0!3m2!1sko!2skr!4v1758094973666!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                    <!-- 지도  -->
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ta01.jpg" alt="ta01" />
+                            </div>
+                            <div class="cardBack">Sliced Boiled Chicken</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ta02.webp" alt="ta02" />
+                            </div>
+                            <div class="cardBack">Crispy Fried Spareribs</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ta03.PNG" alt="ta03" />
+                            </div>
+                            <div class="cardBack">Scallop and Oyster Omelet</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ta04.PNG" alt="ta04" />
+                            </div>
+                            <div class="cardBack">Traditional Angel's <br>Hair with Chicken Fat</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ta05.PNG" alt="ta05" />
+                            </div>
+                            <div class="cardBack">Pork Stomach</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">니하오 (你好)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">시에시에 (謝謝)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">스 (是) / 부스 (不是)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">차이탄 칭 궤이워 (菜單，請給我)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">쩌거 궤이워 (這個，給我)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">이 페이 셩피지우 궤이워 (一杯 生啤酒，給我)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">하오츠 (好吃)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">커이용신융카마? (可以用信用卡嗎?)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">씨쇼우젠 짜이나리? (洗手間在哪裡?)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 대만타이페이 -->
+            <!-- 컨텐츠 일본 후쿠오카 -->
+            <div class="contentBox contentBox1 huku">
+                <div class="mapBox">
+                    <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;Hakata Issou</div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d13294.917058700641!2d130.4250999!3d33.586378!3m2!1i1024!2i768!4f13.1!2m1!1zSGFrYXRhIElzc291IO2bhOy_oOyYpOy5tA!5e0!3m2!1sko!2skr!4v1758698955319!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                    <!-- 지도  -->
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/huku01.webp" alt="huku01" />
+                            </div>
+                            <div class="cardBack">Ajitama Chashu-men</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/huku02.webp" alt="huku02" />
+                            </div>
+                            <div class="cardBack">Ajitama Ramen</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/huku03.webp" alt="huku03" />
+                            </div>
+                            <div class="cardBack">Chashu-men</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/huku04.png" alt="huku04" />
+                            </div>
+                            <div class="cardBack">Wonton-men</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/huku05.png" alt="huku05" />
+                            </div>
+                            <div class="cardBack">Tokusei Ramen</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">곤니치와 (こんにちは)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">아리가토 (ありがとう)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">하이 / 이에 (はい / いいえ)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">메뉴오 미세테 쿠다사이 (メニューを見せてください)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">코레 오 쿠다사이 (これをください)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">나마 비루 오 잇파이 쿠다사이 (生ビールを一杯ください)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">오이시이 (おいしい)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">카도 데키마스카? (カードできますか？)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">토이레 와 도코데스카? (トイレはどこですか？)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 일본 후쿠오카 -->
+            <!-- 컨텐츠 프랑스 파리 -->
+            <div class="contentBox contentBox1 pari">
+                <div class="mapBox">
+                    <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;Le Café de la Paix</div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d42997120.1954627!2d2.3317623!3d48.8708719!3m2!1i1024!2i768!4f13.1!2m1!1sLe%20Caf%C3%A9%20de%20la%20Paix!5e0!3m2!1sko!2skr!4v1758699982972!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <!-- 지도  -->
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/pari01.webp" alt="pari01" />
+                            </div>
+                            <div class="cardBack">Escargots</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/pari02.webp" alt="pari02" />
+                            </div>
+                            <div class="cardBack">Seafood Platter</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/pari03.webp" alt="pari03" />
+                            </div>
+                            <div class="cardBack">Crème Brûlée</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/pari04.webp" alt="pari04" />
+                            </div>
+                            <div class="cardBack">French Onion Soup</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/pari05.webp" alt="pari05" />
+                            </div>
+                            <div class="cardBack">Bone Marrow with Bread</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">봉주르 (Bonjour)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">머르씨 (Merci)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">우이 (Oui) / 노 (Non)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">라 카르트 쥬 쓔일부부플레 (La carte, s'il vous plaît)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">쎄 똠쥬 쓔일부부플레 (Ça, je voudrais s'il vous plaît)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">은 비에르 쥬 쓔일부부플레 (Une bière, s'il vous plaît)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">본 (Bon)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">퐁 파이옹 카르 (Peut-on payer par carte ?)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">우이스트 라 토일렛? (Où est les toilettes ?)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 프랑스 파리  -->
+            <!-- 컨텐츠 중국 상하이 -->
+            <div class="contentBox contentBox1 sang">
+                <div class="mapBox">
+                    <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;Old Jesse</div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2790.4517812763534!2d9.034042076731076!3d45.621659822918176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478693fd4e1206f9%3A0x2a8438347e5c4b79!2sThe%20Old%20Jesse!5e0!3m2!1sko!2skr!4v1758787946809!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <!-- 지도  -->
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/sang01.webp" alt="sang01" />
+                            </div>
+                            <div class="cardBack">Hong Shao Rou</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/sang02.jpg" alt="sang02" />
+                            </div>
+                            <div class="cardBack">Cong Kao Yu Tou</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/sang03.jpg" alt="sang03" />
+                            </div>
+                            <div class="cardBack">He Xia</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/sang04.jpg" alt="sang04" />
+                            </div>
+                            <div class="cardBack">Tang Cu Pai Gu</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/sang05.jpg" alt="sang05" />
+                            </div>
+                            <div class="cardBack">Liang Ban Ji</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">니하오 (你好)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">시에시에 (謝謝)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">스 (是) / 부스 (不是)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">차이탄 칭 궤이워 (菜單，請給我)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">쩌거 궤이워 (這個，給我)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">이 페이 셩피지우 궤이워 (一杯 生啤酒，給我)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">하오츠 (好吃)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">커이용신융카마? (可以用信用卡嗎?)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">씨쇼우젠 짜이나리? (洗手間在哪裡?)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 중국 상하이 -->
+        </div> <!-- 섹션1  -->
+    </section> <!-- 봄  -->
+    <!-- 여름  -->
+    <section>
+        <div class="sec2" id="sec2">
+            <div class="countryBox">
+                <div class="country country5" onclick="nara2('bal')"><span class="none">인도네시아</span> 발리</div>
+                <div class="country country6" onclick="nara2('da')"><span class="none">베트남</span> 다낭</div>
+                <div class="country country7" onclick="nara2('ha')"><span class="none">미국</span> 하와이</div>
+                <div class="country country8" onclick="nara2('ba')"><span class="none">스페인</span> 바르셀로나</div>
+            </div> <!-- 나라  -->
+            <div class="contentBox contentBox2 bal active">
+                <div class="mapBox">
+                    <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;Locavore</div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16319844.839663286!2d107.50033490537261!3d3.00364552054336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23df8e648ddcb%3A0x5a7157f02c311f50!2sLocavore%20NXT!5e0!3m2!1sko!2skr!4v1758788063497!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <!-- 지도  -->
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/bal01.PNG" alt="bal01" />
+                            </div>
+                            <div class="cardBack">SumSum</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/bal02.PNG" alt="bal02" />
+                            </div>
+                            <div class="cardBack">Triple C</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/bal03.PNG" alt="bal03" />
+                            </div>
+                            <div class="cardBack">Bangkal hitam</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/bal04.PNG" alt="bal04" />
+                            </div>
+                            <div class="cardBack">Fragrant rice</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/bal05.PNG" alt="bal05" />
+                            </div>
+                            <div class="cardBack">Hamachi</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">할로 (Halo)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">뜨리마 까시 (Terima kasih)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">야 (Ya) / 띠닥 (Tidak)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">톨롱 메뉴냐 (Tolong menu-nya)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">톨롱 이니 (Tolong ini)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">톨롱 사투 걸라스 비르 드라프트 (Tolong satu gelas bir draft)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">엔낫 (Enak)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">비사 카드? (Bisa kartu?)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">디만 카마르 만시? (Di mana kamar mandi?)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 인도네시아 발리 -->
+            <!-- 컨텐츠 베트남 다낭 -->
+            <div class="contentBox contentBox2 da">
+                <div class="mapBox">
+                <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;My Quang Ba Mua</div>
+                <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d122700.033386902!2d108.11482308868902!3d16.045964440670485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1zTXkgUXVhbmcgQmEgTXVhIOuLpOuCrQ!5e0!3m2!1sko!2skr!4v1758702726212!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <!-- 지도  -->
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/da01.webp" alt="da01" />
+                            </div>
+                            <div class="cardBack">Mỳ Quảng Tôm Thịt </div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/da02.webp" alt="da02" />
+                            </div>
+                            <div class="cardBack">Mỳ Thập Cẩm</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/da03.webp" alt="da03" />
+                            </div>
+                            <div class="cardBack">Mỳ Ếch</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/da04.webp" alt="da04" />
+                            </div>
+                            <div class="cardBack">Mỳ Quảng Cá</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/da05.webp" alt="da05" />
+                            </div>
+                            <div class="cardBack">Ba Mua</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">씬짜오 (Xin chào)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">깜언 (Cảm ơn)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">다 (Dạ / Vâng) / 콩 (Không)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">톨롱 메뉴 (Cho tôi xem thực đơn)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">초이 이 (Cho tôi cái này)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">초이 모트 코프 비아 타이 (Cho tôi một cốc bia tươi)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">응어이 (Ngon)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">코 똣 듀 옷 콰? (Có thẻ được không?)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">토일 라오 께 오? (Toilet/nhà vệ sinh ở đâu?)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 베트남 다낭 -->
+            <!-- 컨텐츠 미국 하와이 -->
+            <div class="contentBox contentBox2 ha">
+                <div class="mapBox">
+                    <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;Helena’s Hawaiian Food</div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3716.495911980163!2d-157.86766372401755!3d21.33092587733029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c006e877069a3f9%3A0x1bbf675c61715a95!2sHelena&#39;s%20Hawaiian%20Food!5e0!3m2!1sko!2skr!4v1758703072574!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ha01.jpg" alt="ha01" />
+                            </div>
+                            <div class="cardBack">Beef Stew</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ha02.jpg" alt="ha02" />
+                            </div>
+                            <div class="cardBack">Pipikaula Shortribs</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ha03.jpg" alt="ha03" />
+                            </div>
+                            <div class="cardBack">Macaroni Salad</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ha04.jpg" alt="ha04" />
+                            </div>
+                            <div class="cardBack">Luau Squid</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ha05.jpg" alt="ha05" />
+                            </div>
+                            <div class="cardBack">Luau</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">알로하 (Aloha)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">마하로 (Mahalo)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">오오 (Ōlelo: Ae) /  아오오 (Olelo: Aole)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">에 올루올루, 에 호이오키 이 카 파파 아이나</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">에 올루올루, 에 하와이 마이 이 케아</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">에 올루올루, 에 하와이 마이 호오카히 에케 피아 호우</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">오노 (Ono)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">히키 이아 오에 케 후오노하 이 카 페파 카레카?</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">아이아 이 헤아 카 루미 호마에마에?</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 미국 하와이  -->
+            <!-- 컨텐츠 스페인 바로셀로나 -->
+            <div class="contentBox contentBox2 ba">
+                <div class="mapBox">
+                    <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;Bar Canete</div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.7667205025687!2d2.1705500760592202!3d41.37915277130094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a258412bcb19%3A0x1c77b2f8f4cdfb63!2zQ2HDsWV0ZQ!5e0!3m2!1sko!2skr!4v1758784615152!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <!-- 지도  -->
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/baro01.jpeg" alt="baro01" />
+                            </div>
+                            <div class="cardBack">Patatas Bravas</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/baro02.jpg" alt="baro02" />
+                            </div>
+                            <div class="cardBack">Tender spicy octopus with tomato</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/baro03.jpg" alt="baro03" />
+                            </div>
+                            <div class="cardBack">Croquetas</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/baro04.jpg" alt="baro04" />
+                            </div>
+                            <div class="cardBack">Scrambled eggs with chorizo</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/baro05.PNG" alt="baro05" />
+                            </div>
+                            <div class="cardBack">Canete</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">올라 (Hola)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">그라씨에스 (Gràcies)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">씨 (Sí) / 노 (No)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">라 까르따 씨우 플라우 (La carta, si us plau)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">아쇼 씨우 플라우 (Això, si us plau)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">우나 세르베사 데 그란야 씨우 플라우 (Una cervesa de gràn̄ia, si us plau)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">에스 몰트 보 (És molt bo)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">아세프텐 타르헤타? (Accepteu targeta?)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">온 에스 엘 바뉴? (On és el bany?)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 스페인 바로셀로나 -->
+        </div> <!-- 섹션2  -->
+    </section> <!-- 여름  -->
+    <!-- 가을  -->
+    <section>
+        <div class="sec2" id="sec3">
+            <div class="countryBox">
+                <div class="country country9" onclick="nara3('kyo')"><span class="none">일본</span> 교토</div>
+                <div class="country country10" onclick="nara3('san')"><span class="none">그리스</span> 산토리니</div>
+                <div class="country country11" onclick="nara3('ban')"><span class="none">캐나다</span> 밴프</div>
+                <div class="country country12" onclick="nara3('muin')"><span class="none">독일</span> 뮌헨</div>
+            </div> <!-- 나라  -->
+            <div class="contentBox contentBox3 kyo active">
+                <div class="mapBox">
+                <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;Kyo Unawa Hon Ten</div>
+                <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3268.096529526094!2d135.76098227634625!3d35.004288666862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6001099e3739eef7%3A0x378c5da9a2f56f42!2z7L-E7Jqw64KY7JmAIOuzuOygkA!5e0!3m2!1sko!2skr!4v1758784993352!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <!-- 지도  -->
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/kyo01.jpg" alt="kyo01" />
+                            </div>
+                            <div class="cardBack">Umaki</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/kyo02.jpeg" alt="kyo02" />
+                            </div>
+                            <div class="cardBack">Hitsumabushi</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/kyo03.jpg" alt="kyo03" />
+                            </div>
+                            <div class="cardBack">Grilled Eel Rice Box</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/kyo04.webp" alt="kyo04" />
+                            </div>
+                            <div class="cardBack">Shirayaki Hitsumabushi</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/kyo05.webp" alt="kyo05" />
+                            </div>
+                            <div class="cardBack">Assortment of Tempura</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">곤니치와 (こんにちは)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">아리가토 (ありがとう)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">하이 / 이에 (はい / いいえ)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">메뉴오 미세테 쿠다사이 (メニューを見せてください)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">코레 오 쿠다사이 (これをください)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">나마 비루 오 잇파이 쿠다사이 (生ビールを一杯ください)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">오이시이 (おいしい)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">카도 데키마스카? (カードできますか？)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">토이레 와 도코데스카? (トイレはどこですか？)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 일본 교토 -->
+            <!-- 컨텐츠 그리스 산토리니 -->
+            <div class="contentBox contentBox3 san">
+                <div class="mapBox">
+                    <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;Metaxi Mas</div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3211.875527132206!2d25.45476737639105!3d36.388007190825455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1499ce1c87457505%3A0x29d68ea46adf6192!2sMetaxi%20Mas!5e0!3m2!1sko!2skr!4v1758785223411!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <!-- 지도  -->
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/san01.jpg" alt="san01" />
+                            </div>
+                            <div class="cardBack">Moussaka</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/san02.jpg" alt="san02" />
+                            </div>
+                            <div class="cardBack">Souvlaki</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/san03.jpg" alt="san03" />
+                            </div>
+                            <div class="cardBack">Grilled Pork with Potatoes</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/san04.jpg" alt="san04" />
+                            </div>
+                            <div class="cardBack">Grilled Octopus with Fava </div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/san05.jpg" alt="san05" />
+                            </div>
+                            <div class="cardBack">Mushroom Risotto</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">야수 (Γειά oou)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">에프카리스토 (Efharistó)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">네 (Nai) / 오히 (Ochi)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">파라칼로 토 메누 (Παρακαλώ, το μενού)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">파라칼로, 에토 (Παρακαλώ, αυτό)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">파라칼로, 에나 맘리 데 피브라 (Παρακαλώ, μια μπύρα draft)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">노스트리모 (Νόστιμο)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">프로스파로 우 크레디토 카르타? (Δέχεστε πιστωτική κάρτα;)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">포우 이네 토 μπάνι? (Πού είναι το μπάνιο;)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 그리스 산토리니 -->
+            <!-- 컨텐츠 캐나다 밴프 -->
+            <div class="contentBox contentBox3 ban">
+                <div class="mapBox">
+                    <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;The Bison Restaurant & Terrace</div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2501.254006876025!2d-115.57516452303105!3d51.17754113474657!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5370ca45c0f19bdb%3A0xa1958fa82b53091f!2sThe%20Bison%20Restaurant!5e0!3m2!1sko!2skr!4v1758785994506!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ban01.jpg" alt="ban01" />
+                            </div>
+                            <div class="cardBack">Bison Tartare</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ban02.jpg" alt="ban02" />
+                            </div>
+                            <div class="cardBack">Elk Tenderloin</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ban03.jpg" alt="ban03" />
+                            </div>
+                            <div class="cardBack">Maple-Glazed Salmon</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ban04.jpg" alt="ban04" />
+                            </div>
+                            <div class="cardBack">Roasted Beet Salad</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ban05.webp" alt="ban05" />
+                            </div>
+                            <div class="cardBack">Wild Mushroom Risotto</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">봉쥬르 (Bonjour)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">머르씨 (Merci)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">위 (Oui) /  노 (Non)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">라 카르트 쓔이 플뢰 (La carte, s’il vous plaît)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">쎄라, 쓔이 플뢰 (Ça, s’il vous plaît)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">우느 비에르 드 프레수르, 쓔이 플뢰 (Une bière pression, s’il vous plaît)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">쒸, 트레 봉 (C’est très bon)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">아세프테 레 카르트? (Acceptez-vous les cartes?)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">우 아 레 투아렛? (Où sont les toilettes ?)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 캐나다 밴프  -->
+            <!-- 컨텐츠 독일 뮌헨 -->
+            <div class="contentBox contentBox3 muin">
+                <div class="mapBox">
+                    <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;Hofbräuhaus München</div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2662.57904644345!2d11.577174476835884!3d48.13764085115619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479e758bcf52fcc5%3A0xa9c170edcdbd1a2f!2z7Zi47ZSE67iM66Gc7J207ZWY7Jqw7IqkIOuujO2XqA!5e0!3m2!1sko!2skr!4v1758786326118!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/muin01.jpg" alt="muin01" />
+                            </div>
+                            <div class="cardBack">Schweinshaxe</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/muin02.jpg" alt="muin02" />
+                            </div>
+                            <div class="cardBack">Weißwurst</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/muin03.jpeg" alt="muin03" />
+                            </div>
+                            <div class="cardBack">Ravioli</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/muin04.jpg" alt="muin04" />
+                            </div>
+                            <div class="cardBack">Obatzda</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/muin05.jfif" alt="muin05" />
+                            </div>
+                            <div class="cardBack">Sauerkraut</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">구텐 탁 (Guten Tag)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">단케 (Danke)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">야 (Ja) / 노흐트 (Nein)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">비테 다스 멘뉴 (Bitte das Menü)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">비테 디제스 (Bitte dieses)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">비테 아이네 하우프트비어 (Bitte ein Helles)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">레크커 (Lecker)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">아크첸티어 싱 카르테? (Akzeptieren Sie Karte?)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">보 워이스트 다스 크로멘토? (Wo ist die Toilette?)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 독인 뮌헨 -->
+        </div> <!-- 섹션3  -->
+    </section>
+    <section>
+        <div class="sec2" id="sec4">
+            <div class="countryBox">
+                <div class="country country13" onclick="nara4('sot')"><span class="none">일본</span> 삿포로</div>
+                <div class="country country14" onclick="nara4('whi')"><span class="none">캐나다</span> 휘슬러</div>
+                <div class="country country15" onclick="nara4('che')"><span class="none">스위스</span> 체르마트</div>
+                <div class="country country16" onclick="nara4('ro')"><span class="none">핀란드</span> 로바니에미</div>
+            </div> <!-- 나라  -->
+            <div class="contentBox contentBox4 sot active">
+                <div class="mapBox">
+                    <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;Sapporo Beer Garden</div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2914.57819972038!2d141.36650327662989!3d43.07133808986865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f0b296c094fffff%3A0x8da6209b02f71a4!2z7IK_7Y-s66GcIOunpeyjvOybkA!5e0!3m2!1sko!2skr!4v1758786721783!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <!-- 지도  -->
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/sot01.png" alt="sot01" />
+                            </div>
+                            <div class="cardBack">Jingisukan</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/sot02.jpg" alt="sot02" />
+                            </div>
+                            <div class="cardBack">Hokkaido Seafood Dish</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/sot03.jpg" alt="sot03" />
+                            </div>
+                            <div class="cardBack">Hokkaido Potato</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/sot04.webp" alt="sot04" />
+                            </div>
+                            <div class="cardBack">Sapporo Miso Ramen</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/sot05.jpg" alt="sot05" />
+                            </div>
+                            <div class="cardBack">Grilled Lamb</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">곤니치와 (こんにちは)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">아리가토 (ありがとう)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">하이 / 이에 (はい / いいえ)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">메뉴오 미세테 쿠다사이 (メニューを見せてください)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">코레 오 쿠다사이 (これをください)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">나마 비루 오 잇파이 쿠다사이 (生ビールを一杯ください)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">오이시이 (おいしい)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">카도 데키마스카? (カードできますか？)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">토이레 와 도코데스카? (トイレはどこですか？)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 일본 삿포로 -->
+            <!-- 컨텐츠 캐나다 휘슬러 -->
+            <div class="contentBox contentBox4 whi">
+                <div class="mapBox">
+                    <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;Araxi Restaurant + Oyster Bar</div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2558.4705044006173!2d-122.95833682307831!3d50.114917111465715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54873cb355260f67%3A0x7bcff1f79b909083!2sAraxi%20Restaurant%20%26%20Oyster%20Bar!5e0!3m2!1sko!2skr!4v1758786893806!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/whi01.jpg" alt="whi01" />
+                            </div>
+                            <div class="cardBack">Oysters</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/whi02.jpg" alt="whi02" />
+                            </div>
+                            <div class="cardBack">Tuna Tataki</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/whi03.jpg" alt="whi03" />
+                            </div>
+                            <div class="cardBack">Seafood Platter</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/whi04.jpg" alt="whi04" />
+                            </div>
+                            <div class="cardBack">Asparagus with Poached Egg</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/whi05.jpg" alt="whi05" />
+                            </div>
+                            <div class="cardBack">Panna Cotta</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">봉쥬르 (Bonjour)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">머르씨 (Merci)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">위 (Oui) /  노 (Non)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">라 카르트 쓔이 플뢰 (La carte, s’il vous plaît)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">쎄라, 쓔이 플뢰 (Ça, s’il vous plaît)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">우느 비에르 드 프레수르, 쓔이 플뢰 (Une bière pression, s’il vous plaît)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">쒸, 트레 봉 (C’est très bon)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">아세프테 레 카르트? (Acceptez-vous les cartes?)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">우 아 레 투아렛? (Où sont les toilettes ?)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 캐나다 휘슬러 -->
+            <!-- 컨텐츠 스위스 체르마트 -->
+            <div class="contentBox contentBox4 che">
+                <div class="mapBox">
+                    <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;Restaurant Schäferstube</div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2770.6381638741764!2d7.746221476747297!3d46.018413996289794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478f35de8025d62d%3A0x6204af3bf8d50c0e!2sRestaurant%20Sch%C3%A4ferstube!5e0!3m2!1sko!2skr!4v1758787470151!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/che01.jfif" alt="che01" />
+                            </div>
+                            <div class="cardBack">Fondue</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/che02.jpg" alt="che02" />
+                            </div>
+                            <div class="cardBack">Raclette</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/che03.jpg" alt="che03" />
+                            </div>
+                            <div class="cardBack">Lamb Chops</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/che04.jpg" alt="che04" />
+                            </div>
+                            <div class="cardBack">Rösti</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/che05.jpg" alt="che05" />
+                            </div>
+                            <div class="cardBack">Lamb Ragout</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">그루에츠티 (Grüezi)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">다네 (Danke)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">예 (Ja) / 넨 (Nein)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">비테 다스 멘뉴 (Bitte das Menü)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">비테 디저스 (Bitte dieses)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">비테 아이네 헤레스 비어 (Bitte ein Helles Bier)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">레커 (Lecker)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">넨 카르테 아크첸티어? (Akzeptieren Sie Karte?)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">보 이스트 디 토일레테? (Wo ist die Toilette?)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 스위스 체르마트  -->
+            <!-- 컨텐츠 핀란드 로바니에미  -->
+            <div class="contentBox contentBox4 ro">
+                <div class="mapBox">
+                    <div class="text"><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;Nili Restaurant</div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1590.8141296957865!2d25.73181907773339!3d66.50191371773714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x442b4bf3a68724bf%3A0x6ebad5841967e763!2sNili%20Restaurant!5e0!3m2!1sko!2skr!4v1758787707980!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="dragCon">
+                    <div class="text2"><i class="fa-solid fa-utensils"></i>&nbsp;&nbsp;추천 메뉴 (드래그, 메뉴이름은 뒷면에)</div>
+                    <div class="dragBox">
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ro01.jpg" alt="ro01" />
+                            </div>
+                            <div class="cardBack">Reindeer Steak</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ro02.jpg" alt="ro02" />
+                            </div>
+                            <div class="cardBack">Salmon dishes</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ro03.jpg" alt="ro03" />
+                            </div>
+                            <div class="cardBack">Soup & Canapé</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ro04.jfif" alt="ro04" />
+                            </div>
+                            <div class="cardBack">Venison Meatloaf</div>
+                        </div>
+                        <div class="cardIn">
+                            <div class="cardFront">
+                                <img class="cardImg" src="./img/ro05.jpg" alt="ro05" />
+                            </div>
+                            <div class="cardBack">Bread and Butter</div>
+                        </div>
+                    </div> <!-- 드래그 박스  -->
+                </div>  <!-- 드래그 컨테이너  -->
+                <div class="wordsCon">
+                    <div class="wordsTitle"><i class="fa-regular fa-handshake"></i>&nbsp;&nbsp;현지인과 가까워지는 한마디</div>
+                    <div class="wordsBox">
+                        <div class="words">
+                            <div class="hello1">안녕하세요<div class="hello2">모이 (Moi)</div></div>
+                            <div class="hello1">감사합니다<div class="hello2">키토스 (Kiitos)</div></div>
+                            <div class="hello1">네 / 아니오<div class="hello2">케이 (Kyllä) / 에이 (Ei)</div></div>
+                        </div> <!-- 단어 1 -->
+                        <div class="words">
+                            <div class="hello1">메뉴판 주세요<div class="hello2">미타스 미누 유루스테루 (Voinko saada ruokalistan?)</div></div>
+                            <div class="hello1">이거 주세요<div class="hello2">미타스 토이토 (Voinko saada tämän?)</div></div>
+                            <div class="hello1">생맥주 한 잔 주세요<div class="hello2">미타스 한칸 빌리에라 (Voinko saada yhden oluen?)</div></div>
+                        </div> <!-- 단어 2 -->
+                        <div class="words wordsLast">
+                            <div class="hello1">맛있어요<div class="hello2">헤르쿨리넨 (Herkullinen)</div></div>
+                            <div class="hello1">카드 돼요?<div class="hello2">보이코우 아크셉토아 카르타? (Voiko maksaa kortilla?)</div></div>
+                            <div class="hello1">화장실 어디에요?<div class="hello2">미타스 온 레투알리? (Missä on WC?)</div></div>
+                        </div> <!-- 단어 3 -->
+                    </div> <!-- 단어 박스 -->
+                </div>  <!-- 단어 컨테이너 -->
+            </div> <!-- 컨텐츠 핀란드 로바니에미 -->
+        </div> <!-- 섹션4  -->
+    </section>
+    <div class="rollingSec">
+        <div class="rollBox">
+            <div class="rolling"></div>
+        </div>
+    </div> <!-- 롤링  -->
+    <footer>
+        <div class="info">
+            <div class="leftF">© 2025 김승아 Portfolio</div>
+            <div class="rightF">이 웹사이트는 개인 포트폴리오 용도로 제작되었습니다</div>
+        </div>
+    </footer>
+
+    <script>
+        // menu active
+        let menus = document.querySelectorAll('.menu')
+        menus.forEach( (item) => {
+            item.addEventListener('click', ()=>{
+                menus.forEach((item2)=>{
+                    item2.classList.remove('active')
+                })
+                item.classList.add('active')
+            })
+        });
+
+        // 국기 이미지 롤링
+        let rollBox = document.querySelector('.rollBox')
+        let rollBox2 = document.querySelector('.rollBox2')
+        let rolling = document.querySelector('.rolling')
+
+        for( let i=1; i<=13; i++){
+            let flagDiv = document.createElement('div')
+            flagDiv.className = 'flagDiv'
+            let flagImg = document.createElement('img')
+            flagImg.className = 'flagImg'
+            flagImg.setAttribute('src', './img/roll' + i + '.png')
+            flagImg.setAttribute('alt', 'flag' + i)
+
+            rolling.appendChild(flagDiv)
+            flagDiv.appendChild(flagImg)
+        }
+
+        let clone = rolling.cloneNode(true)
+        clone.id = 'clone'
+        rollBox.appendChild(clone)
+
+
+        // 드래그박스
+        let dragBoxes = document.querySelectorAll('.dragBox')
+        function dragAble(t){
+            if(!t) return
+
+            let down = false, px = 0, tx = 0;
+            
+            t.addEventListener('mousedown', (e)=>{
+                down = true
+                px = e.clientX
+                e.preventDefault()
+                t.style.cursor = 'grabbing'
+            })
+
+            window.addEventListener('mousemove', (e)=>{
+                if( !down ) return
+                let dx = e.clientX - px
+                px = e.clientX
+                tx += dx
+                t.style.transform = `translateX(${tx}px)`
+            })
+
+            window.addEventListener('mouseup', (e)=>{
+                down = false
+                t.style.cursor = 'grab'
+            })
+        }
+            dragBoxes.forEach(db => dragAble(db));
+        // 드래그박스
+
+        // 나라 온클릭 봄
+        function nara1(item){
+        let contentBox = document.querySelectorAll('.contentBox1')
+        contentBox.forEach((box) => {
+            box.classList.remove('active')
+            if(box.classList.contains(item)){
+                box.classList.add('active')
+            }
+            })  
+        }
+        // 여름
+        function nara2(item){
+        let contentBox = document.querySelectorAll('.contentBox2')
+        contentBox.forEach((box) => {
+            box.classList.remove('active')
+            if(box.classList.contains(item)){
+                box.classList.add('active')
+            }
+            })  
+        }
+        // 가을
+        function nara3(item){
+        let contentBox = document.querySelectorAll('.contentBox3')
+        contentBox.forEach((box) => {
+            box.classList.remove('active')
+            if(box.classList.contains(item)){
+                box.classList.add('active')
+            }
+            })  
+        }
+        // 겨울
+        function nara4(item){
+        let contentBox = document.querySelectorAll('.contentBox4')
+        contentBox.forEach((box) => {
+            box.classList.remove('active')
+            if(box.classList.contains(item)){
+                box.classList.add('active')
+            }
+            })  
+        }
+    </script>
+</body>
+</html>

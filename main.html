@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        body{
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            /* display: flex;
+            justify-content: center; */
+        }
+        .box{
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        video{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .mentBox{
+            z-index: 10;
+            position: absolute;
+            top: 30%; left: 20%;
+            transform: translate(-20%, -30%);
+            color: #FFF;
+            font-size: 45px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        a{
+            text-decoration: none;
+        }
+        .strong{
+            color: rgb(255, 215, 0);
+            font-size: 65px;
+        }
+
+        @media(max-width: 480px){
+            .mentBox{
+                font-size: 35px;
+            }
+            .strong{
+                font-size: 55px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="project.html" target="_self">
+        <div class="box">
+            <video muted loop autoplay src="https://img.modetour.com/eagle/photoimg/8e684e96698d451ca6c9a096464e22ea.mp4"></video>
+            <div class="mentBox">    
+                <div class="ment">계절  따라  떠나는  여행,</div>
+                <div class="ment2" ><span class="strong">클릭</span>으로 시작된다.</div> 
+            </div>
+        </div>
+    </a>
+</body>
+</html>
